@@ -30,5 +30,11 @@ describe OysterCard do
     it { is_expected.to respond_to :touch_out }
 
     it { is_expected.to respond_to :in_journey? }
+
+    it 'Tracks wether card is in use' do
+      subject.touch_in
+      expect(subject.in_journey?).to eq true
+    end
+
   end
 end
