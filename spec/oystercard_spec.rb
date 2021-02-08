@@ -25,6 +25,10 @@ describe OysterCard do
   end
 
   describe 'manages tapping in and out' do
-    it { is_expected.to respond_to :touch_in}
+    it { is_expected.to respond_to :touch_in }
+
+    it { is_expected.to respond_to :touch_out }
+
+    it { is_expected.to respond_to :in_journey? }
   end
 end
