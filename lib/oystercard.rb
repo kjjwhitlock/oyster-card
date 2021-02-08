@@ -12,4 +12,7 @@ class OysterCard
       if @balance + amount < @limit then @balance += amount
       end
   end
+  def deduct(amount)
+      @balance -= amount
 end
+end 
