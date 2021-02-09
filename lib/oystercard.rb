@@ -9,7 +9,7 @@ class OysterCard
     @balance = 0
     @limit = DEFAULT_LIMIT
     @in_use = false
-    @entry_station = "entry station"
+    @entry_station = nil
   end
 
   def top_up(amount)

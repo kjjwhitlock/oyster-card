@@ -45,9 +45,16 @@ describe OysterCard do
       min_fare = OysterCard::MIN_FARE
       expect { subject.touch_out}.to change{subject.balance}.by(- min_fare)
     end
-    it "holds the entry station during the journey" do
-       oyster = double("entry station double", top_up: 50, touch_in: 'entry station')
-       subject.touch_in
-    end
+    let(:entry_station) { double :entry_station}
+      it "holds the entry station during the journey" do
+        subject.top_up(4)
+        subject.touch_in(:entry_station)
+        expect(subject.entry_station).to eq :entry_station
+      end
   end
 end
+=begin      
+      subject.top_up(4)
+      subject.touch_in("Barnes")
+      expect (subject.entry_station).to include 'Barnes'
+=end
