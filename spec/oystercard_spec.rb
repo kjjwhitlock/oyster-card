@@ -31,10 +31,19 @@ describe OysterCard do
 
     it { is_expected.to respond_to :in_journey? }
 
-    it 'Tracks wether card is in use' do
+    it 'Tracks whether card is in use' do
+##########      allow(subject).to receive(:top_up).and_return(1)
+      subject.top_up(1)
       subject.touch_in
       expect(subject.in_journey?).to eq true
     end
-
+    it 'requires at least £1 to successfully tap in' do
+      subject.top_up(0.9)
+      expect{subject.touch_in}.to raise_error "Insufficient funds"
+    end
+    it 'deducts min fare when tapping out' do
+      min_fare = OysterCard::MIN_FARE
+      expect { subject.touch_out}.to change{subject.balance}.by(- min_fare)
+    end
   end
 end
