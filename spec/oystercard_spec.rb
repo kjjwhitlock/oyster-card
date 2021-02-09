@@ -17,7 +17,7 @@ describe OysterCard do
     it 'Enables a top up with an amount chosen by the user' do
       expect{subject.top_up(20)}.to change {subject.balance}.by(20)
     end
-    
+
     it 'Enables a deduction to be made from the card' do
       subject.top_up(10)
       expect{subject.deduct(3)}.to change {subject.balance}.by(- 3)
@@ -44,6 +44,10 @@ describe OysterCard do
     it 'deducts min fare when tapping out' do
       min_fare = OysterCard::MIN_FARE
       expect { subject.touch_out}.to change{subject.balance}.by(- min_fare)
+    end
+    it "holds the entry station during the journey" do
+       oyster = double("entry station double", top_up: 50, touch_in: 'entry station')
+       subject.touch_in
     end
   end
 end
