@@ -34,12 +34,12 @@ describe OysterCard do
     it 'Tracks whether card is in use' do
 ##########      allow(subject).to receive(:top_up).and_return(1)
       subject.top_up(1)
-      subject.touch_in
+      subject.touch_in('Finsbury Park')
       expect(subject.in_journey?).to eq true
     end
     it 'requires at least £1 to successfully tap in' do
       subject.top_up(0.9)
-      expect{subject.touch_in}.to raise_error "Insufficient funds"
+      expect{subject.touch_in('Brixton')}.to raise_error "Insufficient funds"
     end
     it 'deducts min fare when tapping out' do
       min_fare = OysterCard::MIN_FARE
@@ -53,8 +53,3 @@ describe OysterCard do
       end
   end
 end
-=begin      
-      subject.top_up(4)
-      subject.touch_in("Barnes")
-      expect (subject.entry_station).to include 'Barnes'
-=end
