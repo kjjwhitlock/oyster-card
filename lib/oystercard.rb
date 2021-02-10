@@ -1,5 +1,5 @@
 class OysterCard
-  attr_reader :balance, :limit, :entry_station
+  attr_reader :balance, :limit, :entry_station, :exit_station, :card_history
 
   DEFAULT_LIMIT = 90
   MIN_TRAVEL_BALANCE = 1
@@ -8,7 +8,9 @@ class OysterCard
   def initialize
     @balance = 0
     @limit = DEFAULT_LIMIT
-    @entry_station = nil
+		@entry_station = nil
+		@exit_station = nil
+		@card_history = []
   end
 
   def top_up(amount)
@@ -26,13 +28,27 @@ end
     @entry_station = station
   end
 
-  def touch_out
-    deduct(MIN_FARE)
-    entry_station = nil
+  def touch_out(station)
+		deduct(MIN_FARE)
+		
+		@entry_station = nil
+		@exit_station = station
   end
 
-  def in_journey?
-  end
+	def in_journey?
+		return true if @entry_station != nil
+	end
+	
+	def history
+		journey = {}
+
+		@card_history << journey 
+	end
 
 end
 #putting in a comment
+
+# card = OysterCard.new
+# card.touch_in(entry)
+# card.touch_out(exit)
+# card.history -> [{entry: 'Brixton', exit: 'Victoria'}]

@@ -2,6 +2,16 @@ require 'oystercard.rb'
 
 describe OysterCard do
 
+	describe '#history' do
+		it 'should register journey history' do
+			subject.top_up(10)
+			subject.touch_in('Brixton')
+			subject.touch_out('Victoria')
+			expect(subject.history).to be [{entry: 'Brixton', exit: 'Victoria'}]
+		end
+	end
+
+
   #it { is_expected.to respond_to :check_balance }
   describe 'manages balance' do
     it 'Checks that balance is 0' do
@@ -43,7 +53,7 @@ describe OysterCard do
     end
     it 'deducts min fare when tapping out' do
       min_fare = OysterCard::MIN_FARE
-      expect { subject.touch_out}.to change{subject.balance}.by(- min_fare)
+      expect { subject.touch_out('station')}.to change{subject.balance}.by(- min_fare)
     end
     let(:entry_station) { double :entry_station}
       it "holds the entry station during the journey" do
