@@ -35,7 +35,7 @@ describe OysterCard do
 ##########      allow(subject).to receive(:top_up).and_return(1)
       subject.top_up(1)
       subject.touch_in('Finsbury Park')
-      expect(subject.in_journey?).to eq true
+      expect(subject.entry_station).to be_kind_of(String)
     end
     it 'requires at least £1 to successfully tap in' do
       subject.top_up(0.9)
