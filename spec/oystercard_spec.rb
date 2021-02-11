@@ -1,9 +1,8 @@
 require 'oystercard.rb'
 
-
 describe OysterCard do
 
-  min_fare = OysterCard::MIN_FARE
+min_fare = OysterCard::MIN_FARE
 
   describe '#balance' do
     it 'Checks that balance is 0' do
@@ -24,38 +23,45 @@ describe OysterCard do
       expect{subject.touch_in('Brixton')}.to raise_error "Insufficient funds"
     end
   end
-
   describe '#touch_in' do
-    it { is_expected.to respond_to :touch_in }
+    it 'responds to touch in' do
+    card = OysterCard.new
+    expect(card).to respond_to(:touch_in)
+    #it { is_expected.to respond_to :touch_in }
   end
+end
 
   describe '#touch_out' do
-    it { is_expected.to respond_to :touch_out }
+    it 'responds to touch out' do
+      card = OysterCard.new
+      expect(card).to respond_to(:touch_out)
+    end
+    #it { is_expected.to respond_to :touch_out }
     it 'deducts min fare when tapping out' do
-      expect { subject.touch_out('station')}.to change{subject.balance}.by(- min_fare)
+      expect { subject.touch_out('station')}.to change {subject.balance}.by(-min_fare)
     end
   end
-
-  describe '#in_journey' do
-    it { is_expected.to respond_to :in_journey? }
-    it 'Tracks whether card is in use' do
-      subject.top_up(1)
-      subject.touch_in('Finsbury Park')
-      expect(subject.entry_station).to be_kind_of(String)
-    end
-    let(:entry_station) { double :entry_station}
-      it "holds the entry station during the journey" do
-        subject.top_up(4)
-        subject.touch_in(:entry_station)
-        expect(subject.entry_station).to eq :entry_station
-      end
-  end
+  # describe '#in_journey' do
+  #   it { is_expected.to respond_to :in_journey? }
+  #   it 'Tracks whether card is in use' do
+  #     subject.top_up(1)
+  #     subject.touch_in('Finsbury Park')
+  #     expect(subject.entry_station).to be_kind_of(String)
+  #   end
+  #   let(:entry_station) { double :entry_station}
+  #     it "holds the entry station during the journey" do
+  #       subject.top_up(4)
+  #       subject.touch_in(:entry_station)
+  #       expect(subject.entry_station).to eq :entry_station
+  #     end
+  # end
   describe '#history' do
     it 'should register journey history' do
+      card = OysterCard.new
       subject.top_up(10)
       subject.touch_in('Brixton')
       subject.touch_out('Victoria')
       expect(subject.card_history).to eq [{entry: 'Brixton', exit: 'Victoria'}]
     end
   end
-  end
+end

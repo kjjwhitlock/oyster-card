@@ -9,5 +9,5 @@ subject {described_class.new(name: 'Tooting', zone: 3)}
     end
     it 'knows its zone' do
       expect(subject.zone).to eq(3)
-    endß
+    end
 end
