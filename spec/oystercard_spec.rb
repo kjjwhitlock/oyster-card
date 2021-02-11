@@ -1,10 +1,10 @@
 require 'oystercard.rb'
 
+
 describe OysterCard do
 
   min_fare = OysterCard::MIN_FARE
 
-  #it { is_expected.to respond_to :check_balance }
   describe '#balance' do
     it 'Checks that balance is 0' do
       expect(subject.balance).to eq 0
