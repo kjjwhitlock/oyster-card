@@ -23,18 +23,18 @@ min_fare = OysterCard::MIN_FARE
       expect{subject.touch_in('Brixton')}.to raise_error "Insufficient funds"
     end
   end
+
   describe '#touch_in' do
     it 'responds to touch in' do
-    card = OysterCard.new
-    expect(card).to respond_to(:touch_in)
-    #it { is_expected.to respond_to :touch_in }
+      expect(subject).to respond_to(:touch_in)
+      #it { is_expected.to respond_to :touch_in }
+    end
   end
-end
 
   describe '#touch_out' do
     it 'responds to touch out' do
       card = OysterCard.new
-      expect(card).to respond_to(:touch_out)
+      expect(subject).to respond_to(:touch_out)
     end
     #it { is_expected.to respond_to :touch_out }
     it 'deducts min fare when tapping out' do
@@ -61,7 +61,7 @@ end
       subject.top_up(10)
       subject.touch_in('Brixton')
       subject.touch_out('Victoria')
-      expect(subject.card_history).to eq [{entry: 'Brixton', exit: 'Victoria'}]
+      expect(subject.card_history).to include{entry:"Brixton", exit:"Victoria"}
     end
   end
 end
